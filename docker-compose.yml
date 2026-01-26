@@ -9,7 +9,7 @@ services:
             VERBOSE_STARTUP: true
             ORTHANC__NAME: ORTHANC demo
             ORTHANC__AWS_S3_STORAGE__BUCKET_NAME: ikko-orthanc-0
-            ORTHANC__AWS_S3_STORAGE__REGION: eu-west-1
+            ORTHANC__AWS_S3_STORAGE__REGION: us-east-1
             ORTHANC__AWS_S3_STORAGE__ACCESS_KEY: DO801WJL7LQ3VUUFP7TK
             ORTHANC__AWS_S3_STORAGE__SECRET_KEY: ti/BXL9XHENFBzmt5layocjQ/nJ0ZzAVlN4Ph1x9ivY
             ORTHANC__AWS_S3_STORAGE__ENDPOINT: https://ikko-orthanc-0.ams3.digitaloceanspaces.com
@@ -24,8 +24,9 @@ services:
             ORTHANC__INDEX_DIRECTORY: /var/lib/orthanc/db
             ORTHANC__DICOM_TLS_ENABLED: true
             ORTHANC__DICOM_TLS_ALLOW_UNTRUSTED: true  # For testing purposes only   
-            ORTHANC__DICOM_TLS_CERTIFICATE_FILE: /etc/orthanc/tls/dicom-tls-crt.pem
-            ORTHANC__DICOM_TLS_PRIVATE_KEY_FILE: /etc/orthanc/tls/dicom-tls-key.pem
+            ORTHANC__DICOM_TLS_CERTIFICATE: /etc/orthanc/tls/dicom-tls-crt.pem
+            ORTHANC__DICOM_TLS_PRIVATE_KEY: /etc/orthanc/tls/dicom-tls-key.pem
+            ORTHANC__DICOM_TLS_TRUSTED_CERTIFICATES: /etc/orthanc/tls/dicom-tls-crt.pem
             ORTHANC__HTTP_TLS_ENABLED: false  # Use nginx for HTTPS
             ORTHANC__WORKLISTS: |
                 {
