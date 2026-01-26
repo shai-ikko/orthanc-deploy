@@ -1,0 +1,14 @@
+    1  ls /home/
+    2  pwd
+    3  adduser ort
+    4  passwd -l ort
+    5  less /etc/passwd-
+    6  su - ort
+    7  docker
+    8  apt install docker.io
+    9  apt install docker-compose-v2 
+   10  apt install nginx
+   11  apt install ssl-cert
+   12  apt upgrade
+   13  adduser ort docker
+   14  history > setup.txt
