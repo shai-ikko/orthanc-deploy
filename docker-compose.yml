@@ -12,7 +12,7 @@ services:
             ORTHANC__AWS_S3_STORAGE__REGION: us-east-1
             ORTHANC__AWS_S3_STORAGE__ACCESS_KEY: DO801WJL7LQ3VUUFP7TK
             ORTHANC__AWS_S3_STORAGE__SECRET_KEY: ti/BXL9XHENFBzmt5layocjQ/nJ0ZzAVlN4Ph1x9ivY
-            ORTHANC__AWS_S3_STORAGE__ENDPOINT: https://ikko-orthanc-0.ams3.digitaloceanspaces.com
+            ORTHANC__AWS_S3_STORAGE__ENDPOINT: https://ams3.digitaloceanspaces.com
             # - ORTHANC__AWS_S3_STORAGE__VIRTUAL_ADDRESSING=false
             # - ORTHANC__AWS_S3_STORAGE__HYBRID_MODE=WriteToObjectStorage
             # - ORTHANC__AWS_S3_STORAGE__HYBRID_MODE=WriteToFileSystem
