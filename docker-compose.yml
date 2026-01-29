@@ -36,6 +36,10 @@ services:
                     "Directory disabled": "/var/lib/orthanc/worklists",
                     "SaveInOrthancDatabase": true
                 }
+            ORTHANC__DICOM_ALWAYS_ALLOW_FIND: true
+            ORTHANC__DICOM_ALWAYS_ALLOW_FIND_WORKLIST: true
+            ORTHANC__DICOM_ALWAYS_ALLOW_GET: true
+            ORTHANC__DICOM_ALWAYS_ALLOW_MOVE: true
 
             ORTHANC__REGISTERED_USERS: |
                 {
@@ -92,6 +96,10 @@ services:
                     "Directory disabled": "/var/lib/orthanc/worklists",
                     "SaveInOrthancDatabase": true
                 }
+            ORTHANC__DICOM_ALWAYS_ALLOW_FIND: true
+            ORTHANC__DICOM_ALWAYS_ALLOW_FIND_WORKLIST: true
+            ORTHANC__DICOM_ALWAYS_ALLOW_GET: true
+            ORTHANC__DICOM_ALWAYS_ALLOW_MOVE: true
 
             ORTHANC__REGISTERED_USERS: |
                 {
