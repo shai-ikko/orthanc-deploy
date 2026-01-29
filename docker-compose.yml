@@ -53,10 +53,67 @@ services:
             retries: 2
             interval: 3s
             timeout: 2s
-            
+
+    hospithanc:
+        image: orthancteam/orthanc  # For production, set a specific version tag
+        ports: [127.0.0.1:9042:8042, 9104:4242]
+        restart: unless-stopped
+        environment:
+            VERBOSE_ENABLED: true
+            VERBOSE_STARTUP: true
+            ORTHANC__NAME: HOSPITAL demo
+            ORTHANC__AWS_S3_STORAGE__BUCKET_NAME: ikko-hospithanc-0
+            ORTHANC__AWS_S3_STORAGE__REGION: us-east-1
+            ORTHANC__AWS_S3_STORAGE__ACCESS_KEY: DO801WJL7LQ3VUUFP7TK
+            ORTHANC__AWS_S3_STORAGE__SECRET_KEY: ti/BXL9XHENFBzmt5layocjQ/nJ0ZzAVlN4Ph1x9ivY
+            ORTHANC__AWS_S3_STORAGE__ENDPOINT: https://ams3.digitaloceanspaces.com
+            # - ORTHANC__AWS_S3_STORAGE__VIRTUAL_ADDRESSING=false
+            # - ORTHANC__AWS_S3_STORAGE__HYBRID_MODE=WriteToObjectStorage
+            # - ORTHANC__AWS_S3_STORAGE__HYBRID_MODE=WriteToFileSystem
+            ORTHANC__AUTHENTICATION_ENABLED: true
+            ORTHANC__DICOM_SERVER_ENABLED: true
+            ORTHANC__DICOM_AET: HOSPITHANC
+            ORTHANC__DICOM_CHECK_CALLED_AET: true
+            ORTHANC__DEFAULT_ENCODING: "Utf8"
+            ORTHANC__INDEX_DIRECTORY: /var/lib/orthanc/db
+            ORTHANC__DICOM_TLS_ENABLED: true
+            ORTHANC__DICOM_TLS_ALLOW_UNTRUSTED: true  # For testing purposes only   
+            ORTHANC__DICOM_TLS_REMOTE_CERTIFICATE_REQUIRED : false  # For testing purposes only   
+            ORTHANC__DICOM_TLS_CERTIFICATE: /etc/orthanc/tls/dicom-tls-crt.pem
+            ORTHANC__DICOM_TLS_PRIVATE_KEY: /etc/orthanc/tls/dicom-tls-key.pem
+#            ORTHANC__DICOM_TLS_CERTIFICATE: /etc/orthanc/tls/hospital-dicom-tls-crt.pem
+#            ORTHANC__DICOM_TLS_PRIVATE_KEY: /etc/orthanc/tls/hospital-dicom-tls-key.pem
+            ORTHANC__DICOM_TLS_TRUSTED_CERTIFICATES: /etc/orthanc/tls/dicom-tls-crt.pem
+            ORTHANC__HTTP_TLS_ENABLED: false  # Use nginx for HTTPS
+            ORTHANC__WORKLISTS: |
+                {
+                    "Enable": true,
+                    "FilterIssuerAet": false,
+                    "Directory disabled": "/var/lib/orthanc/worklists",
+                    "SaveInOrthancDatabase": true
+                }
+
+            ORTHANC__REGISTERED_USERS: |
+                {
+                    "doctor": "pr0f3ss0r",
+                    "healthcheck": "ZorbaVsJorma"
+                }
+
+        volumes:
+            - hospithanc-sqlite-storage:/var/lib/orthanc/db
+            - ./tls:/etc/orthanc/tls:ro
+
+        healthcheck:
+            test: ["CMD-SHELL", "/probes/test-aliveness.py --user=healthcheck --pwd=ZorbaVsJorma"]
+            start_period: 10s
+            retries: 2
+            interval: 3s
+            timeout: 2s
+
 volumes:
     # minio-storage:
     orthanc-sqlite-storage:
+    hospithanc-sqlite-storage:
 
 #networks:
 #    test:
