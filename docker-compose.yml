@@ -41,6 +41,30 @@ services:
             ORTHANC__DICOM_ALWAYS_ALLOW_GET: true
             ORTHANC__DICOM_ALWAYS_ALLOW_MOVE: true
 
+            ###
+            ### UI changes -- definitions for OrthancExplorer2
+            ###
+            # You might think you could use JSON, like with worklists above or registered-users below,
+            # ORTHANC__ORTHANC_EXPLORER2: | { ... } 
+            # But you can't, https://github.com/orthanc-server/orthanc-builder/issues/34
+            #
+            ## Worklist UI
+            #
+            # Modify new worklist tags to allow setting accession number and set our institute
+            # For general details, see https://github.com/orthanc-server/orthanc-explorer-2/blob/b9d01e0185ff6026244980ea1c21c38e23fed394/Plugin/DefaultConfiguration.json#L272
+            # or, updated (so line number probably inexact), https://github.com/orthanc-server/orthanc-explorer-2/blob/master/Plugin/DefaultConfiguration.json#L272
+            ORTHANC__ORTHANC_EXPLORER2__UI_OPTIONS__NEW_WORKLIST_DEFAULT_TAGS__ACCESSION_NUMBER__REQUIRED: true
+            ORTHANC__ORTHANC_EXPLORER2__UI_OPTIONS__NEW_WORKLIST_DEFAULT_TAGS__ACCESSION_NUMBER__EDITABLE: true
+            ORTHANC__ORTHANC_EXPLORER2__UI_OPTIONS__NEW_WORKLIST_DEFAULT_TAGS__INSTITUTION_NAME__DEFAULT_VALUE: Ikko Health Ltd
+            # ORTHANC__ORTHANC_EXPLORER2__UI_OPTIONS__NEW_WORKLIST_DEFAULT_TAGS__INSTITUTION_NAME__EDITABLE: false
+            ORTHANC__ORTHANC_EXPLORER2__UI_OPTIONS__NEW_WORKLIST_DEFAULT_TAGS__STUDY_INSTANCE_U_I_D__EDITABLE: true
+            #
+            ## General customization
+            #
+            ORTHANC__ORTHANC_EXPLORER2__THEME: dark  # Ikko dark, hospital light
+            ORTHANC__ORTHANC_EXPLORER2__Custom_Css_Path:  /etc/orthanc/ui/ikko.css
+            ORTHANC__ORTHANC_EXPLORER2__Custom_Logo_Path: /etc/orthanc/ui/ikko-logo.png
+
             ORTHANC__REGISTERED_USERS: |
                 {
                     "doctor": "pr0f3ss0r",
@@ -50,6 +74,7 @@ services:
         volumes:
             - orthanc-sqlite-storage:/var/lib/orthanc/db
             - ./tls:/etc/orthanc/tls:ro
+            - ./ui:/etc/orthanc/ui:ro
 
         healthcheck:
             test: ["CMD-SHELL", "/probes/test-aliveness.py --user=healthcheck --pwd=ZorbaVsJorma"]
@@ -101,15 +126,38 @@ services:
             ORTHANC__DICOM_ALWAYS_ALLOW_GET: true
             ORTHANC__DICOM_ALWAYS_ALLOW_MOVE: true
 
+            ###
+            ### UI changes -- definitions for OrthancExplorer2
+            ###
+            # See comment above about JSON
+            #
+            ## Worklist UI
+            #
+            # Modify new worklist tags to allow setting accession number and set our institute
+            # For general details, see https://github.com/orthanc-server/orthanc-explorer-2/blob/b9d01e0185ff6026244980ea1c21c38e23fed394/Plugin/DefaultConfiguration.json#L272
+            # or, updated (so line number probably inexact), https://github.com/orthanc-server/orthanc-explorer-2/blob/master/Plugin/DefaultConfiguration.json#L272
+            ORTHANC__ORTHANC_EXPLORER2__UI_OPTIONS__NEW_WORKLIST_DEFAULT_TAGS__ACCESSION_NUMBER__REQUIRED: true
+            ORTHANC__ORTHANC_EXPLORER2__UI_OPTIONS__NEW_WORKLIST_DEFAULT_TAGS__ACCESSION_NUMBER__EDITABLE: true
+            ORTHANC__ORTHANC_EXPLORER2__UI_OPTIONS__NEW_WORKLIST_DEFAULT_TAGS__INSTITUTION_NAME__DEFAULT_VALUE: Unnamed Hospital
+            # ORTHANC__ORTHANC_EXPLORER2__UI_OPTIONS__NEW_WORKLIST_DEFAULT_TAGS__INSTITUTION_NAME__EDITABLE: false
+            ORTHANC__ORTHANC_EXPLORER2__UI_OPTIONS__NEW_WORKLIST_DEFAULT_TAGS__STUDY_INSTANCE_U_I_D__EDITABLE: true
+            #
+            ## General customization
+            #
+            ORTHANC__ORTHANC_EXPLORER2__THEME: light  # Ikko dark, hospital light
+            # ORTHANC__ORTHANC_EXPLORER2__Custom_Css_Path:  # If we need more modifications
+            # ORTHANC__ORTHANC_EXPLORER2__Custom_Logo_Path: /etc/orthanc/ui/some-logo.png  # if we don't like the Orthanc logo
+
             ORTHANC__REGISTERED_USERS: |
                 {
                     "doctor": "pr0f3ss0r",
                     "healthcheck": "ZorbaVsJorma"
                 }
-
+                
         volumes:
             - hospithanc-sqlite-storage:/var/lib/orthanc/db
             - ./tls:/etc/orthanc/tls:ro
+            - ./ui:/etc/orthanc/ui:ro   # For now, this is FFU
 
         healthcheck:
             test: ["CMD-SHELL", "/probes/test-aliveness.py --user=healthcheck --pwd=ZorbaVsJorma"]
