@@ -65,6 +65,9 @@ services:
             ORTHANC__ORTHANC_EXPLORER2__Custom_Css_Path:  /etc/orthanc/ui/ikko.css
             ORTHANC__ORTHANC_EXPLORER2__Custom_Logo_Path: /etc/orthanc/ui/ikko-logo.png
 
+            STONE_WEB_VIEWER_PLUGIN_ENABLED: true
+            DICOM_WEB_PLUGIN_ENABLED: true
+
             ORTHANC__REGISTERED_USERS: |
                 {
                     "doctor": "pr0f3ss0r",
@@ -147,6 +150,9 @@ services:
             ORTHANC__ORTHANC_EXPLORER2__THEME: light  # Ikko dark, hospital light
             # ORTHANC__ORTHANC_EXPLORER2__Custom_Css_Path:  # If we need more modifications
             # ORTHANC__ORTHANC_EXPLORER2__Custom_Logo_Path: /etc/orthanc/ui/some-logo.png  # if we don't like the Orthanc logo
+
+            STONE_WEB_VIEWER_PLUGIN_ENABLED: true
+            DICOM_WEB_PLUGIN_ENABLED: true
 
             ORTHANC__REGISTERED_USERS: |
                 {
